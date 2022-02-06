@@ -1,14 +1,31 @@
 package GreatLearning.Construction;
 
+import java.util.Stack;
+
 public class Main {
-		static boolean largerFloor(int[] floors, int start, int floor) {
-			boolean result = false;
-			for (int i = start; i < floors.length; i++) {
-				if (floors[i] > floor) {
-					result = true;
-					break;
-				}
+	
+	public void printConstructionOrder(int[] floors) {
+		
+		System.out.println("\nThe order of construction is as follows: ");
+		
+		Stack<Integer> stack = new Stack<Integer>();
+
+		int maxSizeOfFloor = floors.length;
+
+		for (int i = 0; i < floors.length; i++) {
+
+			System.out.println("Day: " + (i+1));
+
+			stack.add(floors[i]);
+
+			while (!stack.isEmpty() && stack.peek() == maxSizeOfFloor) {
+				System.out.print(stack.pop() + " ");
+				maxSizeOfFloor--;
 			}
-			return result;
+
+			System.out.println();
+
 		}
 	}
+	
+}

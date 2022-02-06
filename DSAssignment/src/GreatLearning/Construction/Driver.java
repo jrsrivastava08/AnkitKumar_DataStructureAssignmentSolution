@@ -5,33 +5,19 @@ import java.util.*;
 public class Driver {
 
 	public static void main(String[] args) {
-		System.out.println("------------Welcome to Building construction scheduling----------------\n");
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter total number of floors in the building: ");
-		int floorsCount = scanner.nextInt();
-		int[] floors = new int[floorsCount];
-		for (int i = 0; i < floorsCount; i++) {
-			System.out.println("Enter the floor number for day : " + (i + 1));
-			floors[i] = scanner.nextInt();
-		}
-		// This list maintains the floors that will be assembled together
-		List<Integer> floorsToAssemble = new ArrayList<>();
-		System.out.println("The Order of Construction is as follows - ");
-		System.out.println();
-		for (int i = 0; i < floorsCount; i++) {
-			int floor = floors[i];
-			floorsToAssemble.add(floor);
-			System.out.println("Day: " + (i + 1));
-			if (!Main.largerFloor(floors, i + 1, floor)) {
-				// Print sorted floors in reverse order
-				floorsToAssemble.stream().sorted(Collections.reverseOrder()).forEach(f -> System.out.print(f + " "));
-				floorsToAssemble.clear();
-			}
-			System.out.println();
-		}
-		System.out.println();
-		System.out.println("------------Thank You----------------");
-		scanner.close();
+		
+
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter the total no of floors in the building"); 
+		int floorCount = scan.nextInt();
+		int[] floors = new int[floorCount];
+		for(int i = 0; i < floorCount; i++) {  
+			System.out.println("Enter the floor size given on day: " + (i+1));
+			floors[i] = scan.nextInt(); 
+		}  
+		scan.close();
+		Main service = new Main();
+		service.printConstructionOrder(floors);
 	}
 
 }
