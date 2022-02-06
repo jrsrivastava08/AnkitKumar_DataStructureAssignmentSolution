@@ -1,69 +1,37 @@
 package GreatLearning.Construction;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public class Driver {
 
-    public Integer totalFloors;
-    public Integer[] totalFloorSize;
+	public static void main(String[] args) {
+		System.out.println("------------Welcome to Building construction scheduling----------------\n");
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter total number of floors in the building: ");
+		int floorsCount = scanner.nextInt();
+		int[] floors = new int[floorsCount];
+		for (int i = 0; i < floorsCount; i++) {
+			System.out.println("Enter the floor number for day : " + (i + 1));
+			floors[i] = scanner.nextInt();
+		}
+		// This list maintains the floors that will be assembled together
+		List<Integer> floorsToAssemble = new ArrayList<>();
+		System.out.println("The Order of Construction is as follows - ");
+		System.out.println();
+		for (int i = 0; i < floorsCount; i++) {
+			int floor = floors[i];
+			floorsToAssemble.add(floor);
+			System.out.println("Day: " + (i + 1));
+			if (!Main.largerFloor(floors, i + 1, floor)) {
+				// Print sorted floors in reverse order
+				floorsToAssemble.stream().sorted(Collections.reverseOrder()).forEach(f -> System.out.print(f + " "));
+				floorsToAssemble.clear();
+			}
+			System.out.println();
+		}
+		System.out.println();
+		System.out.println("------------Thank You----------------");
+		scanner.close();
+	}
 
-    //Inputs using this function module.
-    public void getInput() {
-        System.out.println("enter the total no of floors in the building");
-        Scanner sc = new Scanner(System.in);
-        totalFloors = sc.nextInt();
-        totalFloorSize = new Integer[totalFloors];
-
-        for (int i = 1; i <= totalFloors; i++) {
-            System.out.println("enter the floor size given on day : " + i);
-            totalFloorSize[i - 1] = sc.nextInt();
-        }
-    }
-
-    // To calculate and display order of construction.
-
-    public void calculateAndPrintOrderOfConstruction(Integer[] totalFloorSize) {
-        System.out.println("The order of construction is as follows");
-
-        int j = 0;
-        Integer[] totalFloorSizeSorted = totalFloorSize.clone();
-        Arrays.sort(totalFloorSizeSorted, Collections.reverseOrder());
-        
-        Stack < Integer > myStack = new Stack < Integer > ();
-
-        //Loop over unsorted data and when the entry is matched then pop all Stack elements 
-        for (int i = 0; i < totalFloorSize.length; i++) {
-            if (totalFloorSize[i] == totalFloorSizeSorted[j]) {
-                if (i == totalFloorSize.length - 1) j = i;
-                else j = i + 1;
-
-                // Display the current floor as well as entire Stack till it's empty and entry is > than next element in sorted list.
-                System.out.println("Day: " + (i + 1));
-                if (myStack != null) {
-                    System.out.print(totalFloorSize[i] + " ");
-                    while (!myStack.isEmpty()) {
-                        int val = myStack.pop();
-                        if (val >= totalFloorSizeSorted[j]) {
-                            System.out.print(val + " ");
-                        } else {
-                            myStack.push(val);
-                            j -= myStack.size();
-                            break;
-                        }
-                    }
-                    System.out.println("");
-                } else {
-                    System.out.println(totalFloorSize[i]);
-                }
-            } else
-            // Add the element to Stack
-            {
-                System.out.println("Day: " + (i + 1));
-                myStack.push(totalFloorSize[i]);
-            }
-        }
-    }
 }

@@ -1,13 +1,14 @@
 package GreatLearning.Construction;
 
 public class Main {
-
-    public static int totalFloors;
-    public static int[] totalFloorSize;
-    
-    public static void main(String[] args) {
-        Driver myDriverObj = new Driver();
-        myDriverObj.getInput();
-        myDriverObj.calculateAndPrintOrderOfConstruction(myDriverObj.totalFloorSize);
-    }
-}
+		static boolean largerFloor(int[] floors, int start, int floor) {
+			boolean result = false;
+			for (int i = start; i < floors.length; i++) {
+				if (floors[i] > floor) {
+					result = true;
+					break;
+				}
+			}
+			return result;
+		}
+	}
