@@ -2,30 +2,33 @@ package GreatLearning.Construction;
 
 import java.util.Stack;
 
+import java.util.LinkedList;
+import java.util.Scanner;
+
 public class Main {
-	
-	public void printConstructionOrder(int[] floors) {
+
+	public static void main(String[] args) {
 		
-		System.out.println("\nThe order of construction is as follows: ");
+		int floors;
 		
-		Stack<Integer> stack = new Stack<Integer>();
-
-		int maxSizeOfFloor = floors.length;
-
-		for (int i = 0; i < floors.length; i++) {
-
-			System.out.println("Day: " + (i+1));
-
-			stack.add(floors[i]);
-
-			while (!stack.isEmpty() && stack.peek() == maxSizeOfFloor) {
-				System.out.print(stack.pop() + " ");
-				maxSizeOfFloor--;
-			}
-
-			System.out.println();
-
+		LinkedList<Integer> list = new LinkedList<>();
+		
+		Scanner sc  = new Scanner(System.in);
+		
+		System.out.println("Enter the total no of floors in the building");
+		floors = sc.nextInt();
+		
+		for(int i = 1; i <= floors; i++) {
+			
+			System.out.println("Enter the floor size given on day : " + i);
+			list.add(sc.nextInt());			
 		}
+		
+		Driver plan = new Driver();
+		plan.implementConstructionPlan(list);
+		
+		sc.close();
+
 	}
-	
+
 }

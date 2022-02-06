@@ -2,22 +2,64 @@ package GreatLearning.Construction;
 
 import java.util.*;
 
+import java.util.LinkedList;
+import java.util.Stack;
+import java.util.Collections;
+
 public class Driver {
 
-	public static void main(String[] args) {
-		
+	public void implementConstructionPlan(LinkedList<Integer> list) {
 
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Enter the total no of floors in the building"); 
-		int floorCount = scan.nextInt();
-		int[] floors = new int[floorCount];
-		for(int i = 0; i < floorCount; i++) {  
-			System.out.println("Enter the floor size given on day: " + (i+1));
-			floors[i] = scan.nextInt(); 
-		}  
-		scan.close();
-		Main service = new Main();
-		service.printConstructionOrder(floors);
+		int n = list.size();		
+
+		LinkedList<Integer> sortedList = new LinkedList<>();
+		sortedList =  (LinkedList<Integer>) list.clone();
+
+		Collections.sort(sortedList, Collections.reverseOrder());
+
+		Stack<Integer> stack = new Stack<>();
+
+		System.out.println("The order of construction is as follows");
+		System.out.println();
+
+		int day = 1;
+
+		for (int i = 1; i <= n; i++) {
+
+			if(!sortedList.isEmpty() && !list.isEmpty()) {
+
+				if (sortedList.getFirst() == list.getFirst()) {
+					
+					System.out.println("Day: " + day);
+					System.out.print(list.removeFirst() + " ");
+					sortedList.removeFirst();
+
+					while((!stack.isEmpty()) && (stack.peek() == sortedList.peekFirst())) {
+
+						System.out.print(stack.pop() + " ");
+						sortedList.removeFirst();
+					}
+					
+					System.out.println();
+
+					day++;
+
+				} else {
+
+					do {					
+						if(!list.isEmpty()) {		
+
+							stack.push(list.removeFirst());
+							Collections.sort(stack);
+							System.out.println("Day: " + day);
+							System.out.println();
+							day++;
+						}
+
+					} while(!(sortedList.getFirst() == list.getFirst()));
+				}
+			}
+		}
 	}
 
 }
